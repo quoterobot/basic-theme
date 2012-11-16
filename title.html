@@ -1,0 +1,16 @@
+<h1>{{ quote.name }}</h1>
+<small>Date: {{ quote.date|date_format }}</small>
+
+
+<p>
+    <strong>Client:</strong>
+    {{ client.contact.name }}<br />
+    {{ client.company.name }}
+</p>
+
+
+<p>
+    <strong>Provider:</strong>
+    {{ user.name }}<br />
+    {{ company.name }}
+</p>

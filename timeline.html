@@ -1,0 +1,21 @@
+<h1>Timeline</h1>
+
+<table border="1" cellpadding="5">
+{% for milestone in timeline.milestones %}
+    <tr>
+        <th>{{ milestone.measurement }} {{ milestone.measurement_count }}</th>
+        <td>
+            {% for deliverable in milestone.deliverables %}
+                - {{ deliverable.name }}<br />										
+            {% endfor %}
+        </td>
+        <td>
+            {% if milestone.requires_payment %}
+                {{ milestone.payment_amount|money_format }}
+            {% else %}
+                <em>No payment</em>
+            {% endif %}
+        </td>
+    </tr>
+{% endfor %}
+</table>

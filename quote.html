@@ -1,0 +1,51 @@
+<h1>Quote</h1>
+
+<table border="1" cellpadding="5">
+{% for lineitem in quote.lineitems %}
+    <tr>
+        {% if lineitem.type == 'hourly' %}
+
+            <td>
+                {{ lineitem.name }} ({{ lineitem.hours }} x {{ lineitem.hourly_rate }}/hr)
+            </td>
+            <td align="right">
+                {{ (lineitem.hours * lineitem.hourly_rate)|money_format }}
+            </td>
+
+        {% elif lineitem.type == 'fixed' %}
+
+            <td>
+                {{ lineitem.name }}
+            </td>
+            <td align="right">
+                {{ lineitem.amount|money_format }}
+            </td>
+
+        {% elif lineitem.type == 'recurring' %}
+
+            <td>
+                {{ lineitem.name }}
+            </td>
+            <td align="right">
+                {{ lineitem.amount|money_format }} / {{ lineitem.measurement }}
+            </td>
+
+        {% endif %}
+    </tr>
+{% endfor %}
+
+<tr><td colspan="2"></td></tr>
+
+<tr>
+    <td align="right"><strong>Subtotal:</strong></td>
+    <td align="right"><strong>{{ quote.subtotal|money_format }}</strong></td>
+</tr>
+<tr>
+    <td align="right"><strong>Taxes ({{ quote.tax_percentage }}):</strong></td>
+    <td align="right"><strong>{{ (quote.subtotal * quote.tax_percentage / 100)|money_format }}</strong></td>
+</tr>
+<tr>
+    <td align="right"><strong>Total:</strong></td>
+    <td align="right"><strong>{{ quote.total|money_format }}</strong></td>
+</tr>
+</table>
